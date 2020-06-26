@@ -1,24 +1,63 @@
-// This #include statement was automatically added by the Particle IDE.
+////////////////////////////
+//// INCLUDED LIBRARIES ////
+////////////////////////////
+
 #include "neopixel.h"
 
+/////////////////////////////////////
+// NEOPIXEL MATRIX CHARACTERISTICS //
+/////////////////////////////////////
+
+#define PIXEL_COUNT 256         //Number of pixels in matrix
+
+#define PIXEL_PIN A3            //Define Hardware pin used for data
+
+#define PIXEL_TYPE WS2812       //Define LED Type
+
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(PIXEL_COUNT, PIXEL_PIN, PIXEL_TYPE);    //Initialize neopixel function
 
 
-// IMPORTANT: Set pixel COUNT, PIN and TYPE
-#define PIXEL_COUNT 256
-#define PIXEL_PIN A3
-#define PIXEL_TYPE WS2812
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(PIXEL_COUNT, PIXEL_PIN, PIXEL_TYPE);
+////////////////////////////////////
+/////// NIGHT MODE CONFIG //////////
+////////////////////////////////////
 
-#define dnbound 50
-#define upbound 250
+#define dnbound 60              //Photoresistor value to initiate Night Mode
 
-/////////EEPROM ADDRESSES///////////
-///EEPROM 1: Time zone offset   ////
-///EEPROM 2: Weather Data toggle////
-///EEPROM 3: CO2 Data toggle    ////
-///EEPROM 4: Indoor temp toggle ////
-///EEPROM 5: Dark Mode Color    ////
-///EEPROM 6: Mini Clock         ////
+#define upbound 250             //Photoresistor value to exit Night Mode once entered, must be greater than dnbound
+
+//  *Special note: values can be experimentally found through the particle console or app
+
+
+////////////////////////////////////
+//// HARDWARE CONFIGURATION ////////
+////////////////////////////////////
+
+SYSTEM_MODE(AUTOMATIC);         //Tells device to use WiFi by default
+
+#define upbtn D0                //Defines button configuration for navigation buttons
+
+#define enbtn D1
+
+#define dnbtn D2
+
+#define spkpn D3                //Define Speaker pin (optional)
+
+#define brtsns A4               //Define Photoresistor pin (use 10k pulldown resistor)
+
+////////////////////////////////////
+//////// EEPROM ADDRESSES //////////
+////////////////////////////////////
+// EEPROM 1: Time zone offset    ///
+// EEPROM 2: Weather Data toggle ///
+// EEPROM 3: CO2 Data toggle     ///
+// EEPROM 4: Indoor temp toggle  ///
+// EEPROM 5: Dark Mode Color     ///
+// EEPROM 6: Mini Clock          ///
+////////////////////////////////////
+
+
+////////////////////////////////////
+////// GLOBAL VARIABLE LIST ////////
 ////////////////////////////////////
 
 int mprev;      //Previous Minute
