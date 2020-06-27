@@ -25,7 +25,8 @@ void dimg(int cnum, int inpix, int R, int G, int B);
 void condition(int cnum, int inpix, int R, int G, int B);
 void canim(int cnum, int inpix, bool tmr);
 void settings();
-void displayClock(int inpix, int R, int G, int B);
+void displayTemp(int inpix, int R, int G, int B);
+void displayHumidity(int inpix, int R, int G, int B);
 void loop();
 void myHandler(const char *event, const char *data);
 void myHandler2(const char *event, const char *data);
@@ -115,6 +116,7 @@ int ico2;
 uint8_t eevalue;
 int fdark;
 void fillStrip(int start, int end, int R, int G, int B);
+void displayClock(int inpix, bool manEnable, int R, int G, int B);
 //uint8_t plugIP[4] = {192,168,1,36};
 
 void sound(int freq, int dur){
@@ -123,6 +125,12 @@ void sound(int freq, int dur){
 }
 void setup() {
     Mesh.selectAntenna(MeshAntennaType::EXTERNAL);
+    while(!Particle.variable("Photo", analogRead(A4))){
+        delay(5);
+    }
+    Particle.variable("Co2", ico2);
+    Particle.variable("Inside Temp", itemp);
+    Particle.variable("EEPROM", eevalue);
     Particle.subscribe("hook-response/Weather", myHandler, MY_DEVICES);             //Subscribes to Weather API event
     Particle.subscribe("hook-response/co2dat", co2Handler, MY_DEVICES);             //Subscribes to CO2 data api
     Particle.subscribe("hook-response/itempdat", itHandler, MY_DEVICES);            //Subscribes to inside temp data api
@@ -151,16 +159,6 @@ void setup() {
     tmr = 55;
     strip.begin();
     strip.show();
-    //EEPROM.write(1,18);
-    //strscrl(WiFi.SSID(),0,100,50,50,50);
-    //strdisp("F00L", 0, 50,50,50);
-    //strscrl(WiFi.localIP(),0,100,50,50,50);
-    //while(digitalRead(D0) == LOW){
-    //    delay(5);
-    //}
-    //lettest(1000,50,50,50);
-    //Time.beginDST();
-    strip.clear();
     Time.zone(12-EEPROM.read(1));
     mprev=(Time.minute()-1);
     hprev=(Time.hourFormat12()-1);
@@ -2811,17 +2809,34 @@ void settings(){                                        //Code block for a setti
         delay(50);
     }
 }                                                           
-void displayClock(int inpix, int R, int G, int B){
-    
+void displayClock(int inpix, bool manEnable, int R, int G, int B){
     int hr = Time.hourFormat12();
     int min = Time.minute();
-    if(mprev != min || scan == 2) {
-        if(analogRead(A4)>bound || EEPROM.read(6) == 0){    //If the brightness is above the threshold, post large numbers by default
-            mprev = Time.minute();
-            strip.setPixelColor(58,rclock/2,gclock/2,bclock/2);
-            strip.setPixelColor(62,rclock/2,gclock/2,bclock/2);
-            if(min/10 == 0) {
-                num(0,79+inpix,R,G,B);
+    if(manEnable){
+        strip.setPixelColor(58,R/2,G/2,B/2);     //Display clock colons
+        strip.setPixelColor(62,R/2,G/2,B/2);
+        if(min/10 == 0) {                                       //Check if minute number is less than 10
+            num(0,79+inpix,R,G,B);                              //Display 0 digit if less than 10 in 10's place
+            num(min,112+inpix,R,G,B);
+        }
+        else {
+            num((min/10),79+inpix,R,G,B);
+            num((min%10),112+inpix,R,G,B);
+        }
+        for(i=0+inpix;i<7+inpix;i++)                                 //Display 1 if present in the hour, 7 pixels tall
+        {
+            strip.setPixelColor(i,R*(hr/10),G*(hr/10),B*(hr/10));
+        }
+        num(hr-(10*(hr/10)),16,R,G,B);    //Display other digit of hour
+        return;
+    }
+    if(mprev != min) {                                 //Check if time has changed from last pixel push
+        if(analogRead(A4)>bound || EEPROM.read(6) == 0){            //If the brightness is above the threshold, post large numbers by default
+            mprev = Time.minute();                                  //Save current time for next check
+            strip.setPixelColor(58,R/2,G/2,B/2);     //Display clock colons
+            strip.setPixelColor(62,R/2,G/2,B/2);
+            if(min/10 == 0) {                                       //Check if minute number is less than 10
+                num(0,79+inpix,R,G,B);                              //Display 0 digit if less than 10 in 10's place
                 num(min,112+inpix,R,G,B);
             }
             else {
@@ -2832,7 +2847,7 @@ void displayClock(int inpix, int R, int G, int B){
             {
                 strip.setPixelColor(i,R*(hr/10),G*(hr/10),B*(hr/10));
             }
-            num(hr-(10*(hr/10)),16,rclock,gclock,bclock);    //Display other digit of hour
+            num(hr-(10*(hr/10)),16,R,G,B);    //Display other digit of hour
         }
         else{                                               //Display small clock if set in EEPROM
             mprev = Time.minute();
@@ -2852,11 +2867,31 @@ void displayClock(int inpix, int R, int G, int B){
         }
     }
 }
+void displayTemp(int inpix, int R, int G, int B){
+    num(TC1,inpix,R,G,B);
+    num(TC2,inpix+47,R,G,B);
+    strip.setPixelColor(inpix+80,R,G,B);
+}
+void displayHumidity(int inpix, int R, int G, int B){
+    if(HC1 == 10)
+    {
+        strip.setPixelColor(inpix,R,G,B);
+        strip.setPixelColor(inpix+1,R,G,B);
+        strip.setPixelColor(inpix+2,R,G,B);
+        strip.setPixelColor(inpix+3,R,G,B);
+        strip.setPixelColor(inpix+4,R,G,B);
+        strip.setPixelColor(inpix+5,R,G,B);
+        strip.setPixelColor(inpix+6,R,G,B);
+        num(0,inpix+16,R,G,B);
+        num(0,inpix+63,R,G,B);
+    }
+    else{
+        num(HC1,inpix,R,G,B);
+        num(HC2,inpix+47,R,G,B);
+    }
+}
 void loop() {                           //General operating loop of the program
-    Particle.variable("Photo", analogRead(A4));
-    Particle.variable("Co2", ico2);
-    Particle.variable("Inside Temp", itemp);
-    Particle.variable("EEPROM", eevalue);
+    
     
     
 //////////////////////////////////////
@@ -2884,8 +2919,6 @@ void loop() {                           //General operating loop of the program
                 rclock = 1;
             }
             dmode = 1;
-            RGB.control(true);
-            RGB.color(0, 0, 0);
         }
         else {
             if(fdark == 1){
@@ -2970,7 +3003,13 @@ void loop() {                           //General operating loop of the program
 
         /////////////
         ///CLOCK CODE
-        displayClock(0,rclock, gclock, bclock);
+
+        displayClock(0, true, rclock, gclock, bclock);
+        /*for(i=0; i <= 25; i++){
+            displayClock(0, true, (rclock*i)/25, (gclock*i)/25, (bclock*i)/25);
+            strip.show();
+            delay(100);
+        }*/
         strip.show();
         scan=1;
 
@@ -2979,26 +3018,6 @@ void loop() {                           //General operating loop of the program
         ///OTHER ELEMENTS
         if(analogRead(A4) >= bound)///////////////////////////////////////IF SENSOR IS BRIGHT
         {
-            /*strip.setPixelColor(58,rclock,gclock,bclock);
-            strip.setPixelColor(62,rclock,gclock,bclock);*/
-            for(i=0; i<100; i++)
-            {
-                if(digitalRead(D1)==LOW)
-                {
-                    delay(5);
-                }
-            }
-            strip.show();
-            /*strip.setPixelColor(58,rclock/2,gclock/2,bclock/2);
-            strip.setPixelColor(62,rclock/2,gclock/2,bclock/2);*/
-            for(i=0; i<100; i++)
-            {
-                if(digitalRead(D1)==LOW)
-                {
-                    delay(5);
-                }
-            }
-            strip.show();
             ///////WEATHER DISPLAY MODES//////////
             if(EEPROM.read(2) == 1)
             {
@@ -3006,24 +3025,18 @@ void loop() {                           //General operating loop of the program
                 {
                     fillStrip(160,255,0,0,0);
                     for(i=0; i <= 25; i++){
-                        num(TC1,160,0,(gclock*i)/25,0);
-                        num(TC2,207,0,(gclock*i)/25,0);
-                        strip.setPixelColor(240,0,(gclock*i)/25,0);
+                        displayTemp(160,0,(gclock*i)/25,0);
                         strip.show();
                         delay(2);
                     }
-                    num(TC1,160,0,gclock/1,0);
-                    num(TC2,207,0,gclock/1,0);
-                    strip.setPixelColor(240,0,gclock/1,0);
                     for(i=0; i < 25; i++){
                         if(digitalRead(D0) == LOW){
+                            displayClock(0, false, rclock, gclock, bclock);
                             delay(100);
                         }
                     }
                     for(i=25; i >= 0; i--){
-                        num(TC1,160,0,(gclock*i)/25,0);
-                        num(TC2,207,0,(gclock*i)/25,0);
-                        strip.setPixelColor(240,0,(gclock*i)/25,0);
+                        displayTemp(160,0,(gclock*i)/25,0);
                         strip.show();
                         delay(2);
                     }
@@ -3047,6 +3060,7 @@ void loop() {                           //General operating loop of the program
                     }
                     for(i=0; i < 25; i++){
                         if(digitalRead(D0) == LOW){
+                            displayClock(0, false, rclock, gclock, bclock);
                             delay(100);
                         }
                     }
@@ -3063,47 +3077,18 @@ void loop() {                           //General operating loop of the program
                 {
                     fillStrip(160,255,0,0,0);
                     for(i=0; i <= 25; i++){
-                        if(HC1 == 10)
-                        {
-                            strip.setPixelColor(160,0,(gclock*i)/25,(bclock*i)/25);
-                            strip.setPixelColor(161,0,(gclock*i)/25,(bclock*i)/25);
-                            strip.setPixelColor(162,0,(gclock*i)/25,(bclock*i)/25);
-                            strip.setPixelColor(163,0,(gclock*i)/25,(bclock*i)/25);
-                            strip.setPixelColor(164,0,(gclock*i)/25,(bclock*i)/25);
-                            strip.setPixelColor(165,0,(gclock*i)/25,(bclock*i)/25);
-                            strip.setPixelColor(166,0,(gclock*i)/25,(bclock*i)/25);
-                            num(0,176,0,(gclock*i)/25,(bclock*i)/25);
-                            num(0,223,0,(gclock*i)/25,(bclock*i)/25);
-                        }
-                        else{
-                            num(HC1,160,0,(gclock*i)/25,(bclock*i)/25);
-                            num(HC2,207,0,(gclock*i)/25,(bclock*i)/25);
-                        }
+                        displayHumidity(160,0,(gclock*i)/25,(bclock*i)/25);
                         strip.show();
                         delay(2);
                     }
                     for(i=0; i < 25; i++){
                         if(digitalRead(D0) == LOW){
+                            displayClock(0, false, rclock, gclock, bclock);
                             delay(100);
                         }
                     }
                     for(i=25; i >= 0; i--){
-                        if(HC1 == 10)
-                        {
-                            strip.setPixelColor(160,0,(gclock*i)/25,(bclock*i)/25);
-                            strip.setPixelColor(161,0,(gclock*i)/25,(bclock*i)/25);
-                            strip.setPixelColor(162,0,(gclock*i)/25,(bclock*i)/25);
-                            strip.setPixelColor(163,0,(gclock*i)/25,(bclock*i)/25);
-                            strip.setPixelColor(164,0,(gclock*i)/25,(bclock*i)/25);
-                            strip.setPixelColor(165,0,(gclock*i)/25,(bclock*i)/25);
-                            strip.setPixelColor(166,0,(gclock*i)/25,(bclock*i)/25);
-                            num(0,176,0,(gclock*i)/25,(bclock*i)/25);
-                            num(0,223,0,(gclock*i)/25,(bclock*i)/25);
-                        }
-                        else{
-                            num(HC1,160,0,(gclock*i)/25,(bclock*i)/25);
-                            num(HC2,207,0,(gclock*i)/25,(bclock*i)/25);
-                        }
+                        displayHumidity(160,0,(gclock*i)/25,(bclock*i)/25);
                         strip.show();
                         delay(2);
                     }
@@ -3118,7 +3103,9 @@ void loop() {                           //General operating loop of the program
                         delay(2);
                     }
                     canim(cid,160,true);
+                    displayClock(0, false, rclock, gclock, bclock);
                     canim(cid,160,true);
+                    displayClock(0, false, rclock, gclock, bclock);
                     canim(cid,160,true);
                     for(i=25; i >= 0; i--){
                         condition(cid,160, (rclock*i)/25, (gclock*i)/25, (bclock*i)/25);
@@ -3251,7 +3238,7 @@ void loop() {                           //General operating loop of the program
             condition(cid,(i*16)-96);
             dimg(cid,(i*16)-96);*/
             
-            displayClock((i*16),rclock, gclock, bclock);
+            displayClock((i*16), true, rclock, gclock, bclock);
             
             /*strip.setPixelColor(58+(i*16),rclock,gclock,bclock);
             strip.setPixelColor(62+(i*16),rclock,gclock,bclock);*/
