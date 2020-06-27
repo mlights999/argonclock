@@ -1831,67 +1831,67 @@ void dimg(int cnum, int inpix){                     //Code block for displaying 
         strip.setPixelColor(inpix+44,rclock,gclock,bclock);    
     }
 }                                             
-void condition(int cnum, int inpix){                    //Code block for displaying the current weather condition (eg. sunny, rainy, cloudy...)
+void condition(int cnum, int inpix, int R, int G, int B){                    //Code block for displaying the current weather condition (eg. sunny, rainy, cloudy...)
     if(cltr[0] == 'd')
     {
         if(cnum == 800 || cnum == 801 || cnum == 721)                       //Clear or Haze
         {
-            strip.setPixelColor(inpix+3,rclock/1.8,gclock*1.3,0);
-            strip.setPixelColor(inpix+18,rclock/1.8,gclock*1.3,0);
-            strip.setPixelColor(inpix+19,rclock/1.8,gclock*1.3,0);
-            strip.setPixelColor(inpix+20,rclock/1.8,gclock*1.3,0);
-            strip.setPixelColor(inpix+31,rclock/1.8,gclock*1.3,0);
-            strip.setPixelColor(inpix+29,rclock/1.8,gclock*1.3,0);
-            strip.setPixelColor(inpix+28,rclock/1.8,gclock*1.3,0);
-            strip.setPixelColor(inpix+27,rclock/1.8,gclock*1.3,0);
-            strip.setPixelColor(inpix+25,rclock/1.8,gclock*1.3,0);
-            strip.setPixelColor(inpix+34,rclock/1.8,gclock*1.3,0);
-            strip.setPixelColor(inpix+35,rclock/1.8,gclock*1.3,0);
-            strip.setPixelColor(inpix+36,rclock/1.8,gclock*1.3,0);
-            strip.setPixelColor(inpix+51,rclock/1.8,gclock*1.3,0);
+            strip.setPixelColor(inpix+3,R/1.8,G*1.3,0);
+            strip.setPixelColor(inpix+18,R/1.8,G*1.3,0);
+            strip.setPixelColor(inpix+19,R/1.8,G*1.3,0);
+            strip.setPixelColor(inpix+20,R/1.8,G*1.3,0);
+            strip.setPixelColor(inpix+31,R/1.8,G*1.3,0);
+            strip.setPixelColor(inpix+29,R/1.8,G*1.3,0);
+            strip.setPixelColor(inpix+28,R/1.8,G*1.3,0);
+            strip.setPixelColor(inpix+27,R/1.8,G*1.3,0);
+            strip.setPixelColor(inpix+25,R/1.8,G*1.3,0);
+            strip.setPixelColor(inpix+34,R/1.8,G*1.3,0);
+            strip.setPixelColor(inpix+35,R/1.8,G*1.3,0);
+            strip.setPixelColor(inpix+36,R/1.8,G*1.3,0);
+            strip.setPixelColor(inpix+51,R/1.8,G*1.3,0);
         }
         if(cnum == 802 || cnum == 803)                                      //Partly cloudy
         {
-            strip.setPixelColor(inpix+3,rclock,gclock*1.9,0);
-            strip.setPixelColor(inpix+18,rclock,gclock*1.9,0);
-            strip.setPixelColor(inpix+19,rclock,gclock*1.9,0);
-            strip.setPixelColor(inpix+31,rclock,gclock*1.9,0);
-            strip.setPixelColor(inpix+29,rclock,gclock*1.9,0);
-            strip.setPixelColor(inpix+34,rclock,gclock*1.9,0);
-            strip.setPixelColor(inpix+20,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+26,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+27,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+28,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+35,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+36,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+37,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+42,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+43,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+44,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+52,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+51,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+53,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+59,rclock,gclock,bclock);
+            strip.setPixelColor(inpix+3,R,G*1.9,0);
+            strip.setPixelColor(inpix+18,R,G*1.9,0);
+            strip.setPixelColor(inpix+19,R,G*1.9,0);
+            strip.setPixelColor(inpix+31,R,G*1.9,0);
+            strip.setPixelColor(inpix+29,R,G*1.9,0);
+            strip.setPixelColor(inpix+34,R,G*1.9,0);
+            strip.setPixelColor(inpix+20,R,G,B);
+            strip.setPixelColor(inpix+26,R,G,B);
+            strip.setPixelColor(inpix+27,R,G,B);
+            strip.setPixelColor(inpix+28,R,G,B);
+            strip.setPixelColor(inpix+35,R,G,B);
+            strip.setPixelColor(inpix+36,R,G,B);
+            strip.setPixelColor(inpix+37,R,G,B);
+            strip.setPixelColor(inpix+42,R,G,B);
+            strip.setPixelColor(inpix+43,R,G,B);
+            strip.setPixelColor(inpix+44,R,G,B);
+            strip.setPixelColor(inpix+52,R,G,B);
+            strip.setPixelColor(inpix+51,R,G,B);
+            strip.setPixelColor(inpix+53,R,G,B);
+            strip.setPixelColor(inpix+59,R,G,B);
         }
         if(cnum > 599 && cnum < 630)                                    //Snow
         {
-            strip.setPixelColor(inpix+1,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+31,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+15,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+14,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+13,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+16,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+17,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+18,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+30,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+29,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+32,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+33,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+34,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+47,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+46,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+45,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+49,rclock,gclock,bclock);
+            strip.setPixelColor(inpix+1,R,G,B);
+            strip.setPixelColor(inpix+31,R,G,B);
+            strip.setPixelColor(inpix+15,R,G,B);
+            strip.setPixelColor(inpix+14,R,G,B);
+            strip.setPixelColor(inpix+13,R,G,B);
+            strip.setPixelColor(inpix+16,R,G,B);
+            strip.setPixelColor(inpix+17,R,G,B);
+            strip.setPixelColor(inpix+18,R,G,B);
+            strip.setPixelColor(inpix+30,R,G,B);
+            strip.setPixelColor(inpix+29,R,G,B);
+            strip.setPixelColor(inpix+32,R,G,B);
+            strip.setPixelColor(inpix+33,R,G,B);
+            strip.setPixelColor(inpix+34,R,G,B);
+            strip.setPixelColor(inpix+47,R,G,B);
+            strip.setPixelColor(inpix+46,R,G,B);
+            strip.setPixelColor(inpix+45,R,G,B);
+            strip.setPixelColor(inpix+49,R,G,B);
             
             /*strip.setPixelColor(inpix+14,rclock,gclock,bclock);
             strip.setPixelColor(inpix+3,rclock,gclock,bclock);
@@ -1917,71 +1917,71 @@ void condition(int cnum, int inpix){                    //Code block for display
         }
         if(cnum == 804 || (cnum > 199 && cnum < 233) || (cnum > 299 && cnum < 532))                       //Cloudy or Thunderstorm (base)
         {
-            strip.setPixelColor(inpix+1,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+31,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+15,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+14,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+13,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+16,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+17,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+18,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+30,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+29,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+32,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+33,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+34,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+47,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+46,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+45,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+49,rclock,gclock,bclock);
+            strip.setPixelColor(inpix+1,R,G,B);
+            strip.setPixelColor(inpix+31,R,G,B);
+            strip.setPixelColor(inpix+15,R,G,B);
+            strip.setPixelColor(inpix+14,R,G,B);
+            strip.setPixelColor(inpix+13,R,G,B);
+            strip.setPixelColor(inpix+16,R,G,B);
+            strip.setPixelColor(inpix+17,R,G,B);
+            strip.setPixelColor(inpix+18,R,G,B);
+            strip.setPixelColor(inpix+30,R,G,B);
+            strip.setPixelColor(inpix+29,R,G,B);
+            strip.setPixelColor(inpix+32,R,G,B);
+            strip.setPixelColor(inpix+33,R,G,B);
+            strip.setPixelColor(inpix+34,R,G,B);
+            strip.setPixelColor(inpix+47,R,G,B);
+            strip.setPixelColor(inpix+46,R,G,B);
+            strip.setPixelColor(inpix+45,R,G,B);
+            strip.setPixelColor(inpix+49,R,G,B);
         }
         if(cnum == 701 || cnum == 761)                                      //Mist
         {
-            strip.setPixelColor(inpix+1,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+31,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+15,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+14,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+13,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+16,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+17,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+18,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+30,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+29,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+32,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+33,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+34,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+47,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+46,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+45,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+49,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+11,rclock/2,gclock/2,bclock/2);
-            strip.setPixelColor(inpix+20,rclock/2,gclock/2,bclock/2);
-            strip.setPixelColor(inpix+27,rclock/2,gclock/2,bclock/2);
-            strip.setPixelColor(inpix+36,rclock/2,gclock/2,bclock/2);
-            strip.setPixelColor(inpix+43,rclock/2,gclock/2,bclock/2);
-            strip.setPixelColor(inpix+42,rclock/3,gclock/3,bclock/3);
-            strip.setPixelColor(inpix+25,rclock/3,gclock/3,bclock/3);
-            strip.setPixelColor(inpix+38,rclock/3,gclock/3,bclock/3);
+            strip.setPixelColor(inpix+1,R,G,B);
+            strip.setPixelColor(inpix+31,R,G,B);
+            strip.setPixelColor(inpix+15,R,G,B);
+            strip.setPixelColor(inpix+14,R,G,B);
+            strip.setPixelColor(inpix+13,R,G,B);
+            strip.setPixelColor(inpix+16,R,G,B);
+            strip.setPixelColor(inpix+17,R,G,B);
+            strip.setPixelColor(inpix+18,R,G,B);
+            strip.setPixelColor(inpix+30,R,G,B);
+            strip.setPixelColor(inpix+29,R,G,B);
+            strip.setPixelColor(inpix+32,R,G,B);
+            strip.setPixelColor(inpix+33,R,G,B);
+            strip.setPixelColor(inpix+34,R,G,B);
+            strip.setPixelColor(inpix+47,R,G,B);
+            strip.setPixelColor(inpix+46,R,G,B);
+            strip.setPixelColor(inpix+45,R,G,B);
+            strip.setPixelColor(inpix+49,R,G,B);
+            strip.setPixelColor(inpix+11,R/2,G/2,B/2);
+            strip.setPixelColor(inpix+20,R/2,G/2,B/2);
+            strip.setPixelColor(inpix+27,R/2,G/2,B/2);
+            strip.setPixelColor(inpix+36,R/2,G/2,B/2);
+            strip.setPixelColor(inpix+43,R/2,G/2,B/2);
+            strip.setPixelColor(inpix+42,R/2,G/2,B/2);
+            strip.setPixelColor(inpix+25,R/2,G/2,B/2);
+            strip.setPixelColor(inpix+38,R/2,G/2,B/2);
             
         }
         if(cnum == 711 || cnum == 731 || cnum == 761 || cnum == 751 || cnum == 762)         //Fog
         {
-            strip.setPixelColor(inpix+15,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+16,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+31,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+32,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+47,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+18,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+29,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+34,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+11,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+20,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+27,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+36,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+22,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+25,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+38,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+41,rclock,gclock,bclock);
+            strip.setPixelColor(inpix+15,R,G,B);
+            strip.setPixelColor(inpix+16,R,G,B);
+            strip.setPixelColor(inpix+31,R,G,B);
+            strip.setPixelColor(inpix+32,R,G,B);
+            strip.setPixelColor(inpix+47,R,G,B);
+            strip.setPixelColor(inpix+18,R,G,B);
+            strip.setPixelColor(inpix+29,R,G,B);
+            strip.setPixelColor(inpix+34,R,G,B);
+            strip.setPixelColor(inpix+11,R,G,B);
+            strip.setPixelColor(inpix+20,R,G,B);
+            strip.setPixelColor(inpix+27,R,G,B);
+            strip.setPixelColor(inpix+36,R,G,B);
+            strip.setPixelColor(inpix+22,R,G,B);
+            strip.setPixelColor(inpix+25,R,G,B);
+            strip.setPixelColor(inpix+38,R,G,B);
+            strip.setPixelColor(inpix+41,R,G,B);
         }
         if(cnum == 781)
         {
@@ -2001,44 +2001,44 @@ void condition(int cnum, int inpix){                    //Code block for display
     {
         if(cnum == 800 || cnum == 801 || cnum == 721)
         {
-            strip.setPixelColor(inpix+16,rclock,gclock*1.2,bclock/3);
-            strip.setPixelColor(inpix+31,rclock,gclock*1.2,bclock/3);
-            strip.setPixelColor(inpix+32,rclock,gclock*1.2,bclock/3);
-            strip.setPixelColor(inpix+30,rclock,gclock*1.2,bclock/3);
-            strip.setPixelColor(inpix+33,rclock,gclock*1.2,bclock/3);
-            strip.setPixelColor(inpix+46,rclock,gclock*1.2,bclock/3);
-            strip.setPixelColor(inpix+34,rclock,gclock*1.2,bclock/3);
-            strip.setPixelColor(inpix+45,rclock,gclock*1.2,bclock/3);
-            strip.setPixelColor(inpix+35,rclock,gclock*1.2,bclock/3);
-            strip.setPixelColor(inpix+44,rclock,gclock*1.2,bclock/3);
-            strip.setPixelColor(inpix+36,rclock,gclock*1.2,bclock/3);
-            strip.setPixelColor(inpix+43,rclock,gclock*1.2,bclock/3);
-            strip.setPixelColor(inpix+26,rclock,gclock*1.2,bclock/3);
-            strip.setPixelColor(inpix+37,rclock,gclock*1.2,bclock/3);
-            strip.setPixelColor(inpix+42,rclock,gclock*1.2,bclock/3);
-            strip.setPixelColor(inpix+22,rclock,gclock*1.2,bclock/3);
-            strip.setPixelColor(inpix+25,rclock,gclock*1.2,bclock/3);
-            strip.setPixelColor(inpix+38,rclock,gclock*1.2,bclock/3);
+            strip.setPixelColor(inpix+16,R,G*1.2,B/3);
+            strip.setPixelColor(inpix+31,R,G*1.2,B/3);
+            strip.setPixelColor(inpix+32,R,G*1.2,B/3);
+            strip.setPixelColor(inpix+30,R,G*1.2,B/3);
+            strip.setPixelColor(inpix+33,R,G*1.2,B/3);
+            strip.setPixelColor(inpix+46,R,G*1.2,B/3);
+            strip.setPixelColor(inpix+34,R,G*1.2,B/3);
+            strip.setPixelColor(inpix+45,R,G*1.2,B/3);
+            strip.setPixelColor(inpix+35,R,G*1.2,B/3);
+            strip.setPixelColor(inpix+44,R,G*1.2,B/3);
+            strip.setPixelColor(inpix+36,R,G*1.2,B/3);
+            strip.setPixelColor(inpix+43,R,G*1.2,B/3);
+            strip.setPixelColor(inpix+26,R,G*1.2,B/3);
+            strip.setPixelColor(inpix+37,R,G*1.2,B/3);
+            strip.setPixelColor(inpix+42,R,G*1.2,B/3);
+            strip.setPixelColor(inpix+22,R,G*1.2,B/3);
+            strip.setPixelColor(inpix+25,R,G*1.2,B/3);
+            strip.setPixelColor(inpix+38,R,G*1.2,B/3);
         }
         if(cnum > 599 && cnum < 630)                                    //Snow
         {
-            strip.setPixelColor(inpix+1,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+31,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+15,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+14,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+13,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+16,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+17,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+18,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+30,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+29,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+32,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+33,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+34,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+47,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+46,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+45,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+49,rclock,gclock,bclock);
+            strip.setPixelColor(inpix+1,R,G,B);
+            strip.setPixelColor(inpix+31,R,G,B);
+            strip.setPixelColor(inpix+15,R,G,B);
+            strip.setPixelColor(inpix+14,R,G,B);
+            strip.setPixelColor(inpix+13,R,G,B);
+            strip.setPixelColor(inpix+16,R,G,B);
+            strip.setPixelColor(inpix+17,R,G,B);
+            strip.setPixelColor(inpix+18,R,G,B);
+            strip.setPixelColor(inpix+30,R,G,B);
+            strip.setPixelColor(inpix+29,R,G,B);
+            strip.setPixelColor(inpix+32,R,G,B);
+            strip.setPixelColor(inpix+33,R,G,B);
+            strip.setPixelColor(inpix+34,R,G,B);
+            strip.setPixelColor(inpix+47,R,G,B);
+            strip.setPixelColor(inpix+46,R,G,B);
+            strip.setPixelColor(inpix+45,R,G,B);
+            strip.setPixelColor(inpix+49,R,G,B);
             
             /*strip.setPixelColor(inpix+14,rclock,gclock,bclock);
             strip.setPixelColor(inpix+3,rclock,gclock,bclock);
@@ -2064,91 +2064,91 @@ void condition(int cnum, int inpix){                    //Code block for display
         }
         if(cnum == 802 || cnum == 803)
         {
-            strip.setPixelColor(inpix+17,rclock,gclock*1.2,bclock/3);
-            strip.setPixelColor(inpix+21,rclock,gclock*1.2,bclock/3);
-            strip.setPixelColor(inpix+30,rclock,gclock*1.2,bclock/3);
-            strip.setPixelColor(inpix+29,rclock,gclock*1.2,bclock/3);
-            strip.setPixelColor(inpix+34,rclock,gclock*1.2,bclock/3);
-            strip.setPixelColor(inpix+20,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+26,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+27,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+28,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+35,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+36,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+37,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+42,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+43,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+44,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+52,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+51,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+53,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+59,rclock,gclock,bclock);
+            strip.setPixelColor(inpix+17,R,G*1.2,B/3);
+            strip.setPixelColor(inpix+21,R,G*1.2,B/3);
+            strip.setPixelColor(inpix+30,R,G*1.2,B/3);
+            strip.setPixelColor(inpix+29,R,G*1.2,B/3);
+            strip.setPixelColor(inpix+34,R,G*1.2,B/3);
+            strip.setPixelColor(inpix+20,R,G,B);
+            strip.setPixelColor(inpix+26,R,G,B);
+            strip.setPixelColor(inpix+27,R,G,B);
+            strip.setPixelColor(inpix+28,R,G,B);
+            strip.setPixelColor(inpix+35,R,G,B);
+            strip.setPixelColor(inpix+36,R,G,B);
+            strip.setPixelColor(inpix+37,R,G,B);
+            strip.setPixelColor(inpix+42,R,G,B);
+            strip.setPixelColor(inpix+43,R,G,B);
+            strip.setPixelColor(inpix+44,R,G,B);
+            strip.setPixelColor(inpix+52,R,G,B);
+            strip.setPixelColor(inpix+51,R,G,B);
+            strip.setPixelColor(inpix+53,R,G,B);
+            strip.setPixelColor(inpix+59,R,G,B);
         }
         if(cnum == 804 || (cnum > 199 && cnum < 233) || (cnum > 299 && cnum < 532))
         {
-            strip.setPixelColor(inpix+1,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+31,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+15,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+14,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+13,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+16,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+17,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+18,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+30,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+29,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+32,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+33,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+34,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+47,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+46,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+45,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+49,rclock,gclock,bclock);
+            strip.setPixelColor(inpix+1,R,G,B);
+            strip.setPixelColor(inpix+31,R,G,B);
+            strip.setPixelColor(inpix+15,R,G,B);
+            strip.setPixelColor(inpix+14,R,G,B);
+            strip.setPixelColor(inpix+13,R,G,B);
+            strip.setPixelColor(inpix+16,R,G,B);
+            strip.setPixelColor(inpix+17,R,G,B);
+            strip.setPixelColor(inpix+18,R,G,B);
+            strip.setPixelColor(inpix+30,R,G,B);
+            strip.setPixelColor(inpix+29,R,G,B);
+            strip.setPixelColor(inpix+32,R,G,B);
+            strip.setPixelColor(inpix+33,R,G,B);
+            strip.setPixelColor(inpix+34,R,G,B);
+            strip.setPixelColor(inpix+47,R,G,B);
+            strip.setPixelColor(inpix+46,R,G,B);
+            strip.setPixelColor(inpix+45,R,G,B);
+            strip.setPixelColor(inpix+49,R,G,B);
         }
         if(cnum == 701 || cnum == 741)
         {
-            strip.setPixelColor(inpix+1,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+31,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+15,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+14,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+13,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+16,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+17,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+18,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+30,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+29,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+32,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+33,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+34,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+47,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+46,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+45,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+49,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+11,rclock/2,gclock/2,bclock/2);
-            strip.setPixelColor(inpix+20,rclock/2,gclock/2,bclock/2);
-            strip.setPixelColor(inpix+27,rclock/2,gclock/2,bclock/2);
-            strip.setPixelColor(inpix+36,rclock/2,gclock/2,bclock/2);
-            strip.setPixelColor(inpix+43,rclock/2,gclock/2,bclock/2);
-            strip.setPixelColor(inpix+25,rclock/3,gclock/3,bclock/3);
-            strip.setPixelColor(inpix+38,rclock/3,gclock/3,bclock/3);
+            strip.setPixelColor(inpix+1,R,G,B);
+            strip.setPixelColor(inpix+31,R,G,B);
+            strip.setPixelColor(inpix+15,R,G,B);
+            strip.setPixelColor(inpix+14,R,G,B);
+            strip.setPixelColor(inpix+13,R,G,B);
+            strip.setPixelColor(inpix+16,R,G,B);
+            strip.setPixelColor(inpix+17,R,G,B);
+            strip.setPixelColor(inpix+18,R,G,B);
+            strip.setPixelColor(inpix+30,R,G,B);
+            strip.setPixelColor(inpix+29,R,G,B);
+            strip.setPixelColor(inpix+32,R,G,B);
+            strip.setPixelColor(inpix+33,R,G,B);
+            strip.setPixelColor(inpix+34,R,G,B);
+            strip.setPixelColor(inpix+47,R,G,B);
+            strip.setPixelColor(inpix+46,R,G,B);
+            strip.setPixelColor(inpix+45,R,G,B);
+            strip.setPixelColor(inpix+49,R,G,B);
+            strip.setPixelColor(inpix+11,R/2,G/2,B/2);
+            strip.setPixelColor(inpix+20,R/2,G/2,B/2);
+            strip.setPixelColor(inpix+27,R/2,G/2,B/2);
+            strip.setPixelColor(inpix+36,R/2,G/2,B/2);
+            strip.setPixelColor(inpix+43,R/2,G/2,B/2);
+            strip.setPixelColor(inpix+25,R/2,G/2,B/2);
+            strip.setPixelColor(inpix+38,R/2,G/2,B/2);
         }
         if(cnum == 711 || cnum == 731 || cnum == 761 || cnum == 751 || cnum == 762)
         {
-            strip.setPixelColor(inpix+15,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+16,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+31,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+32,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+47,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+18,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+29,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+34,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+11,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+20,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+27,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+36,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+22,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+25,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+38,rclock,gclock,bclock);
-            strip.setPixelColor(inpix+41,rclock,gclock,bclock);
+            strip.setPixelColor(inpix+15,R,G,B);
+            strip.setPixelColor(inpix+16,R,G,B);
+            strip.setPixelColor(inpix+31,R,G,B);
+            strip.setPixelColor(inpix+32,R,G,B);
+            strip.setPixelColor(inpix+47,R,G,B);
+            strip.setPixelColor(inpix+18,R,G,B);
+            strip.setPixelColor(inpix+29,R,G,B);
+            strip.setPixelColor(inpix+34,R,G,B);
+            strip.setPixelColor(inpix+11,R,G,B);
+            strip.setPixelColor(inpix+20,R,G,B);
+            strip.setPixelColor(inpix+27,R,G,B);
+            strip.setPixelColor(inpix+36,R,G,B);
+            strip.setPixelColor(inpix+22,R,G,B);
+            strip.setPixelColor(inpix+25,R,G,B);
+            strip.setPixelColor(inpix+38,R,G,B);
+            strip.setPixelColor(inpix+41,R,G,B);
         }
         if(cnum == 781)
         {
@@ -3137,7 +3137,7 @@ void loop() {                           //General operating loop of the program
                 else if(wmode == 4)
                 {
                     fillStrip(160,255,0,0,0);
-                    condition(cid,160);
+                    condition(cid,160, rclock, gclock, bclock);
                     strip.show();
                     delay(100);
                     canim(cid,160,true);
@@ -3164,7 +3164,7 @@ void loop() {                           //General operating loop of the program
             }
             if(EEPROM.read(2) == 1)
             {
-                condition(cid,160);
+                condition(cid,160, rclock, gclock, bclock);
                 dimg(cid,160);
             }
             strip.show();
@@ -3184,7 +3184,7 @@ void loop() {                           //General operating loop of the program
         
         if(cid == cprev)
         {
-            condition(cid,0);
+            condition(cid,0, rclock, gclock, bclock);
             strip.show();
         }
         else
@@ -3194,7 +3194,7 @@ void loop() {                           //General operating loop of the program
                 strip.setPixelColor(i,0,0,0);
             }
             strip.show();
-            condition(cid,0);
+            condition(cid,0, rclock, gclock, bclock);
             strip.show();
             cprev = cid;
         }
@@ -3296,7 +3296,7 @@ void loop() {                           //General operating loop of the program
             num(HC1,352+(i*16),0,gclock,bclock);
             num(HC2,399+(i*16),0,gclock,bclock);
             
-            condition(cid,448+(i*16));
+            condition(cid,448+(i*16), rclock, gclock, bclock);
             dimg(cid,448+(i*16));
             
             
@@ -3328,7 +3328,7 @@ void loop() {                           //General operating loop of the program
             num(HC1,352+((i-numRows)*16),0,gclock,bclock);
             num(HC2,399+((i-numRows)*16),0,gclock,bclock);
             
-            condition(cid,448+((i-numRows)*16));
+            condition(cid,448+((i-numRows)*16), rclock, gclock, bclock);
             dimg(cid,448+((i-numRows)*16));
             strip.show();
             //Delay - speed of scroll
@@ -3426,7 +3426,7 @@ void myHandler(const char *event, const char *data) {
         {
             strip.setPixelColor(i,0,0,0);
         }
-        condition(cid,160);
+        condition(cid,160, rclock, gclock, bclock);
         strip.show();
         for(i=0;i<100;i++)
         {
