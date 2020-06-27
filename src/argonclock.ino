@@ -1800,35 +1800,35 @@ void strscrl(const char *wrd, int pix, int dly, int R, int G, int B){           
     }*/
     
 }       
-void dimg(int cnum, int inpix){                     //Code block for displaying a still weather animation when in dark mode
+void dimg(int cnum, int inpix, int R, int G, int B){                     //Code block for displaying a still weather animation when in dark mode
     if(cnum > 299 && cnum < 322)
     {
-        strip.setPixelColor(inpix+10,rclock,gclock,bclock);
-        strip.setPixelColor(inpix+25,rclock,gclock,bclock);
-        strip.setPixelColor(inpix+43,rclock,gclock,bclock);
+        strip.setPixelColor(inpix+10,R,G,B);
+        strip.setPixelColor(inpix+25,R,G,B);
+        strip.setPixelColor(inpix+43,R,G,B);
     }
     else if(cnum > 199 && cnum < 235)
     {
-        strip.setPixelColor(inpix+28,rclock,gclock,bclock);
-        strip.setPixelColor(inpix+20,rclock,gclock,bclock);
-        strip.setPixelColor(inpix+26,rclock,gclock,bclock);
-        strip.setPixelColor(inpix+22,rclock,gclock,bclock);
+        strip.setPixelColor(inpix+28,R,G,B);
+        strip.setPixelColor(inpix+20,R,G,B);
+        strip.setPixelColor(inpix+26,R,G,B);
+        strip.setPixelColor(inpix+22,R,G,B);
     }
     else if(cnum > 499 && cnum < 533)
     {
-        strip.setPixelColor(inpix+12,rclock,gclock,bclock);
-        strip.setPixelColor(inpix+22,rclock,gclock,bclock);
-        strip.setPixelColor(inpix+27,rclock,gclock,bclock);
-        strip.setPixelColor(inpix+37,rclock,gclock,bclock);
-        strip.setPixelColor(inpix+44,rclock,gclock,bclock);
+        strip.setPixelColor(inpix+12,R,G,B);
+        strip.setPixelColor(inpix+22,R,G,B);
+        strip.setPixelColor(inpix+27,R,G,B);
+        strip.setPixelColor(inpix+37,R,G,B);
+        strip.setPixelColor(inpix+44,R,G,B);
     }
     else if(cnum > 599 && cnum < 630)                                    //Snow
     {
-        strip.setPixelColor(inpix+12,rclock,gclock,bclock);
-        strip.setPixelColor(inpix+22,rclock,gclock,bclock);
-        strip.setPixelColor(inpix+27,rclock,gclock,bclock);
-        strip.setPixelColor(inpix+37,rclock,gclock,bclock);
-        strip.setPixelColor(inpix+44,rclock,gclock,bclock);    
+        strip.setPixelColor(inpix+12,R,G,B);
+        strip.setPixelColor(inpix+22,R,G,B);
+        strip.setPixelColor(inpix+27,R,G,B);
+        strip.setPixelColor(inpix+37,R,G,B);
+        strip.setPixelColor(inpix+44,R,G,B);    
     }
 }                                             
 void condition(int cnum, int inpix, int R, int G, int B){                    //Code block for displaying the current weather condition (eg. sunny, rainy, cloudy...)
@@ -2172,17 +2172,11 @@ void canim(int cnum, int inpix, bool tmr){                      //Code block for
         strip.setPixelColor(inpix+26,0,0,0);
         strip.setPixelColor(inpix+22,0,0,0);
         strip.setPixelColor(inpix+20,0,0,0);
-        if(tmr)
+        for(i=0; i<100; i++)
         {
-            /*strip.setPixelColor(58,rclock,gclock,bclock);
-            strip.setPixelColor(62,rclock,gclock,bclock);*/
-            strip.show();
-            for(i=0; i<100; i++)
+            if(digitalRead(D0)==LOW && digitalRead(D1)==LOW && digitalRead(D2)==LOW)
             {
-                if(digitalRead(D0)==LOW && digitalRead(D1)==LOW && digitalRead(D2)==LOW)
-                {
-                    delay(5);
-                }
+                delay(5);
             }
         }
         strip.setPixelColor(inpix+28,rclock/1.2,gclock*2,0);
@@ -2211,12 +2205,6 @@ void canim(int cnum, int inpix, bool tmr){                      //Code block for
     }
     else if(cnum > 299 && cnum < 322)
     {
-        
-        if(tmr)
-        {
-            /*strip.setPixelColor(58,rclock,gclock,bclock);
-            strip.setPixelColor(62,rclock,gclock,bclock);*/
-        }
         strip.setPixelColor(inpix+12,0,gclock,bclock);
         //strip.setPixelColor(inpix+22,0,gclock/3,bclock);
         strip.setPixelColor(inpix+27,0,gclock,bclock);
@@ -2252,11 +2240,6 @@ void canim(int cnum, int inpix, bool tmr){                      //Code block for
             {
                 delay(5);
             }
-        }
-        if(tmr)
-        {
-            /*strip.setPixelColor(58,rclock/2,gclock/2,bclock/2);
-            strip.setPixelColor(62,rclock/2,gclock/2,bclock/2);*/
         }
         strip.setPixelColor(inpix+10,0,gclock,bclock);
         //strip.setPixelColor(inpix+20,0,gclock/3,bclock);
@@ -2297,11 +2280,6 @@ void canim(int cnum, int inpix, bool tmr){                      //Code block for
     }
     else if(cnum > 499 && cnum < 533)
     {
-        if(tmr)
-        {
-            /*strip.setPixelColor(58,rclock,gclock,bclock);
-            strip.setPixelColor(62,rclock,gclock,bclock);*/
-        }
         strip.setPixelColor(inpix+12,0,gclock/3,bclock);
         strip.setPixelColor(inpix+22,0,gclock/3,bclock);
         strip.setPixelColor(inpix+27,0,gclock/3,bclock);
@@ -2337,11 +2315,6 @@ void canim(int cnum, int inpix, bool tmr){                      //Code block for
             {
                 delay(5);
             }
-        }
-        if(tmr)
-        {
-            /*strip.setPixelColor(58,rclock/2,gclock/2,bclock/2);
-            strip.setPixelColor(62,rclock/2,gclock/2,bclock/2);*/
         }
         strip.setPixelColor(inpix+10,0,gclock/3,bclock);
         strip.setPixelColor(inpix+20,0,gclock/3,bclock);
@@ -2382,11 +2355,6 @@ void canim(int cnum, int inpix, bool tmr){                      //Code block for
     }
     else if(cnum > 599 && cnum < 630)
     {
-        if(tmr)
-        {
-            /*strip.setPixelColor(58,rclock,gclock,bclock);
-            strip.setPixelColor(62,rclock,gclock,bclock);*/
-        }
         strip.setPixelColor(inpix+12,rclock*1.5,gclock*1.5,bclock*1.8);
         strip.setPixelColor(inpix+22,rclock*1.5,gclock*1.5,bclock*1.8);
         strip.setPixelColor(inpix+27,rclock*1.5,gclock*1.5,bclock*1.8);
@@ -2422,11 +2390,6 @@ void canim(int cnum, int inpix, bool tmr){                      //Code block for
             {
                 delay(5);
             }
-        }
-        if(tmr)
-        {
-            /*strip.setPixelColor(58,rclock/2,gclock/2,bclock/2);
-            strip.setPixelColor(62,rclock/2,gclock/2,bclock/2);*/
         }
         strip.setPixelColor(inpix+10,rclock*1.5,gclock*1.5,bclock*1.8);
         strip.setPixelColor(inpix+20,rclock*1.5,gclock*1.5,bclock*1.8);
@@ -2467,28 +2430,12 @@ void canim(int cnum, int inpix, bool tmr){                      //Code block for
     }
     else
     {
-        if(tmr)
+        for(i=0; i<200; i++)
         {
-            /*strip.setPixelColor(58,rclock,gclock,bclock);
-            strip.setPixelColor(62,rclock,gclock,bclock);*/
-            for(i=0; i<100; i++)
+            if(digitalRead(D0)==LOW && digitalRead(D1)==LOW && digitalRead(D2)==LOW)
             {
-                if(digitalRead(D0)==LOW && digitalRead(D1)==LOW && digitalRead(D2)==LOW)
-                {
-                    delay(5);
-                }
+                delay(5);
             }
-            strip.show();
-            /*strip.setPixelColor(58,rclock/2,gclock/2,bclock/2);
-            strip.setPixelColor(62,rclock/2,gclock/2,bclock/2);*/
-            for(i=0; i<100; i++)
-            {
-                if(digitalRead(D0)==LOW && digitalRead(D1)==LOW && digitalRead(D2)==LOW)
-                {
-                    delay(5);
-                }
-            }
-            strip.show();
         }
     }
 }                                  
@@ -3137,12 +3084,15 @@ void loop() {                           //General operating loop of the program
                 else if(wmode == 4)
                 {
                     fillStrip(160,255,0,0,0);
-                    condition(cid,160, rclock, gclock, bclock);
-                    strip.show();
-                    delay(100);
+                    for(i=0; i <= 25; i++){
+                        condition(cid,160, (rclock*i)/25, (gclock*i)/25, (bclock*i)/25);
+                        strip.show();
+                        delay(2);
+                    }
                     canim(cid,160,true);
                     canim(cid,160,true);
                     canim(cid,160,true);
+                    
                     wmode = 1;
                 }
             }
@@ -3165,7 +3115,7 @@ void loop() {                           //General operating loop of the program
             if(EEPROM.read(2) == 1)
             {
                 condition(cid,160, rclock, gclock, bclock);
-                dimg(cid,160);
+                dimg(cid,160, rclock, gclock, bclock);
             }
             strip.show();
             strip.setPixelColor(62,0,0,0);
@@ -3297,7 +3247,7 @@ void loop() {                           //General operating loop of the program
             num(HC2,399+(i*16),0,gclock,bclock);
             
             condition(cid,448+(i*16), rclock, gclock, bclock);
-            dimg(cid,448+(i*16));
+            dimg(cid,448+(i*16), rclock, gclock, bclock);
             
             
             if(min/10 == 0) {
@@ -3329,7 +3279,7 @@ void loop() {                           //General operating loop of the program
             num(HC2,399+((i-numRows)*16),0,gclock,bclock);
             
             condition(cid,448+((i-numRows)*16), rclock, gclock, bclock);
-            dimg(cid,448+((i-numRows)*16));
+            dimg(cid,448+((i-numRows)*16), rclock, gclock, bclock);
             strip.show();
             //Delay - speed of scroll
             if(digitalRead(D0) == HIGH){
