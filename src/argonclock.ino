@@ -2841,26 +2841,61 @@ void displayClock(int inpix, bool manEnable, int R, int G, int B){
     }
 }
 void displayTemp(int inpix, int R, int G, int B){
-    num(TC1,inpix,R,G,B);
-    num(TC2,inpix+47,R,G,B);
-    strip.setPixelColor(inpix+80,R,G,B);
-}
-void displayHumidity(int inpix, int R, int G, int B){
-    if(HC1 == 10)
-    {
-        strip.setPixelColor(inpix,R,G,B);
-        strip.setPixelColor(inpix+1,R,G,B);
-        strip.setPixelColor(inpix+2,R,G,B);
-        strip.setPixelColor(inpix+3,R,G,B);
-        strip.setPixelColor(inpix+4,R,G,B);
-        strip.setPixelColor(inpix+5,R,G,B);
-        strip.setPixelColor(inpix+6,R,G,B);
-        num(0,inpix+16,R,G,B);
-        num(0,inpix+63,R,G,B);
+    if((inpix/8)%2 == 0){
+        num(TC1,inpix,R,G,B);
+        num(TC2,inpix+47,R,G,B);
+        strip.setPixelColor(inpix+80,R,G,B);
     }
     else{
-        num(HC1,inpix,R,G,B);
-        num(HC2,inpix+47,R,G,B);
+        num(TC1,inpix,R,G,B);
+        num(TC2,inpix+33,R,G,B);
+        strip.setPixelColor(inpix+80,R,G,B);
+    }
+}
+void displayHumidity(int inpix, int R, int G, int B){
+    if((inpix/8)%2 == 0){
+        if(HC1 == 10)
+        {
+            strip.setPixelColor(inpix,R,G,B);
+            strip.setPixelColor(inpix+1,R,G,B);
+            strip.setPixelColor(inpix+2,R,G,B);
+            strip.setPixelColor(inpix+3,R,G,B);
+            strip.setPixelColor(inpix+4,R,G,B);
+            strip.setPixelColor(inpix+5,R,G,B);
+            strip.setPixelColor(inpix+6,R,G,B);
+            num(0,inpix+16,R,G,B);
+            num(0,inpix+63,R,G,B);
+        }
+        else{
+            num(HC1,inpix,R,G,B);
+            num(HC2,inpix+47,R,G,B);
+        }
+    }
+    else{
+        if(HC1 == 10)
+        {
+            strip.setPixelColor(inpix,R,G,B);
+            strip.setPixelColor(inpix-1,R,G,B);
+            strip.setPixelColor(inpix-2,R,G,B);
+            strip.setPixelColor(inpix-3,R,G,B);
+            strip.setPixelColor(inpix-4,R,G,B);
+            strip.setPixelColor(inpix-5,R,G,B);
+            strip.setPixelColor(inpix-6,R,G,B);
+            num(0,inpix+16,R,G,B);
+            num(0,inpix+49,R,G,B);
+        }
+        else{
+            num(HC1,inpix,R,G,B);
+            num(HC2,inpix+33,R,G,B);
+        }
+    }
+}
+void bdelay(int numMillis){
+    for(i=0; i < numMillis/50; i++){                                      //Fancy delay function to ensure button presses are caught
+        if(digitalRead(D0) == LOW && digitalRead(D1) == LOW && digitalRead(D2) == LOW){
+            displayClock(0, false, rclock, gclock, bclock);     //Updates clock if the time has changed
+            delay(50);
+        }
     }
 }
 void loop() {                           //General operating loop of the program
@@ -2971,57 +3006,40 @@ void loop() {                           //General operating loop of the program
 //////////////MODE 1//////////////////              Clock with cycling weather conditions
 //////////////////////////////////////
     
-    if(dmode == 1){                                                     //Mode 1
+    if(dmode == 1){                                                     
 
-
-        /////////////
-        ///CLOCK CODE
-
-        displayClock(0, true, rclock, gclock, bclock);
-        /*for(i=0; i <= 25; i++){
-            displayClock(0, true, (rclock*i)/25, (gclock*i)/25, (bclock*i)/25);
-            strip.show();
-            delay(100);
-        }*/
+        displayClock(0, true, rclock, gclock, bclock);                          //Manually Update Temperature every full cycle
         strip.show();
         scan=1;
 
-
-        /////////////////
-        ///OTHER ELEMENTS
-        if(analogRead(A4) >= bound)///////////////////////////////////////IF SENSOR IS BRIGHT
+        //////////IF SENSOR IS BRIGHT//////////
+        if(analogRead(A4) >= bound)             
         {
             ///////WEATHER DISPLAY MODES//////////
-            if(EEPROM.read(2) == 1)
+            if(EEPROM.read(2) == 1)                                             //Check if setting is enabled for displaying weather elements
             {
-                if(wmode == 1)                                      //Outdoor Temperature
+                if(wmode == 1)                                                  //Outdoor Temperature
                 {
-                    fillStrip(160,255,0,0,0);
-                    for(i=0; i <= 25; i++){
-                        displayTemp(160,0,(gclock*i)/25,0);
+                    fillStrip(160,255,0,0,0);                                   //Erase space used for temperature numbers
+                    for(i=0; i <= 25; i++){                                     //Fade up animation for numbers
+                        displayTemp(160,0,(gclock*i)/25,0);                     //Call function used to display numbers
                         strip.show();
-                        delay(2);
+                        delay(2);                                               //Adjust this delay to change animation duration
                     }
-                    for(i=0; i < 25; i++){
-                        if(digitalRead(D0) == LOW){
-                            displayClock(0, false, rclock, gclock, bclock);
-                            delay(100);
-                        }
-                    }
-                    for(i=25; i >= 0; i--){
-                        displayTemp(160,0,(gclock*i)/25,0);
+                    bdelay(2500);
+                    for(i=25; i >= 0; i--){                                     //Fade down animation
+                        displayTemp(160,0,(gclock*i)/25,0);                     //Call function used to display numbers
                         strip.show();
-                        delay(2);
+                        delay(2);                                               //Adjust this delay to change animation duration
                     }
-                    if(EEPROM.read(4) == 1){
-                        wmode = 2;
+                    if(EEPROM.read(4) == 1){                                    //Check settings in EEPROM
+                        wmode = 2;                                              //Go to indoor temperature code block if configured to do so
                     }
                     else{
-                        wmode = 3;
+                        wmode = 3;                                              //Otherwise skip, and go to the humidity control
                     }
-                    strip.show();
                 }
-                if(wmode == 2)                                      //Indoor Temp from Adafruit Sensor
+                if(wmode == 2)                                                  //Indoor Temp from Adafruit Sensor
                 {
                     fillStrip(160,255,0,0,0);
                     for(i=0; i <= 25; i++){
@@ -3031,12 +3049,7 @@ void loop() {                           //General operating loop of the program
                         strip.show();
                         delay(2);
                     }
-                    for(i=0; i < 25; i++){
-                        if(digitalRead(D0) == LOW){
-                            displayClock(0, false, rclock, gclock, bclock);
-                            delay(100);
-                        }
-                    }
+                    bdelay(2500);
                     for(i=25; i <= 0; i--){
                         num(itemp/10,160,(rclock*i)/50,0,(bclock*i)/25);
                         num(itemp%10,207,(rclock*i)/50,0,(bclock*i)/25);
@@ -3054,12 +3067,7 @@ void loop() {                           //General operating loop of the program
                         strip.show();
                         delay(2);
                     }
-                    for(i=0; i < 25; i++){
-                        if(digitalRead(D0) == LOW){
-                            displayClock(0, false, rclock, gclock, bclock);
-                            delay(100);
-                        }
-                    }
+                    bdelay(2500);
                     for(i=25; i >= 0; i--){
                         displayHumidity(160,0,(gclock*i)/25,(bclock*i)/25);
                         strip.show();
@@ -3090,21 +3098,17 @@ void loop() {                           //General operating loop of the program
                 }
             }
         }
-        else//////////////////////////////////////////////////////////IF SENSOR IS DARK
+
+        ///////IF SENSOR IS DARK//////////
+        else
         {
             delay(1000);
-            if(photoupd == 1)
+            if(photoupd == 1)                       //Statement executes once to initially erase the clock pixels
             {
-                for(i=0;i<160;i++)
-                {
-                    strip.setPixelColor(i,0,0,0);
-                }
+                fillStrip(0,159,0,0,0);
                 photoupd=0;
             }
-            for(i=160;i<247;i++)
-            {
-                strip.setPixelColor(i,0,0,0);
-            }
+            fillStrip(160,255,0,0,0);               //Statement erases weather condition section
             if(EEPROM.read(2) == 1)
             {
                 condition(cid,160, rclock, gclock, bclock);
@@ -3132,10 +3136,7 @@ void loop() {                           //General operating loop of the program
         }
         else
         {
-            for(i=0;i<49;i++)
-            {
-                strip.setPixelColor(i,0,0,0);
-            }
+            fillStrip(0,48,0,0,0);
             strip.show();
             condition(cid,0, rclock, gclock, bclock);
             strip.show();
@@ -3144,27 +3145,8 @@ void loop() {                           //General operating loop of the program
         canim(cid,0,false);
         canim(cid,0,false);
         canim(cid,0,false);
-        if(HC1 == 10)
-        {
-            strip.setPixelColor(175,0,gclock,bclock);
-            strip.setPixelColor(174,0,gclock,bclock);
-            strip.setPixelColor(173,0,gclock,bclock);
-            strip.setPixelColor(172,0,gclock,bclock);
-            strip.setPixelColor(171,0,gclock,bclock);
-            strip.setPixelColor(170,0,gclock,bclock);
-            strip.setPixelColor(169,0,gclock,bclock);
-            num(0,191,0,gclock,bclock);
-            num(0,224,0,gclock,bclock);
-        }
-        else
-        {
-            strip.setPixelColor(240,0,0,0);
-            num(HC1,191,0,gclock,bclock);
-            num(HC2,224,0,gclock,bclock);
-        }
-        num(TC1,79,0,gclock,0);
-        num(TC2,112,0,gclock,0);
-        strip.setPixelColor(159,0,gclock,0);
+        displayHumidity(175,0,gclock,bclock);
+        displayTemp(79,0,gclock,0);
         strip.show();
         scan = 1;
         delay(10);
