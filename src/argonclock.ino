@@ -3031,7 +3031,7 @@ void loop() {                           //General operating loop of the program
                     }
                     wmode = 3;
                 }
-                else if (wmode == 3)
+                if (wmode == 3)
                 {
                     fillStrip(160,255,0,0,0);
                     for(i=0; i <= 25; i++){
@@ -3081,7 +3081,7 @@ void loop() {                           //General operating loop of the program
                     }
                     wmode = 4;
                 }
-                else if(wmode == 4)
+                if(wmode == 4)
                 {
                     fillStrip(160,255,0,0,0);
                     for(i=0; i <= 25; i++){
@@ -3092,7 +3092,12 @@ void loop() {                           //General operating loop of the program
                     canim(cid,160,true);
                     canim(cid,160,true);
                     canim(cid,160,true);
-                    
+                    for(i=25; i >= 0; i--){
+                        condition(cid,160, (rclock*i)/25, (gclock*i)/25, (bclock*i)/25);
+                        dimg(cid,160,(rclock*i)/25, (gclock*i)/25, (bclock*i)/25);
+                        strip.show();
+                        delay(2);
+                    }
                     wmode = 1;
                 }
             }
