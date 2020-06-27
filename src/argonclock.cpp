@@ -3122,9 +3122,13 @@ void loop() {                           //General operating loop of the program
                             strip.setPixelColor(164,0,(gclock*i)/25,(bclock*i)/25);
                             strip.setPixelColor(165,0,(gclock*i)/25,(bclock*i)/25);
                             strip.setPixelColor(166,0,(gclock*i)/25,(bclock*i)/25);
+                            num(0,176,0,(gclock*i)/25,(bclock*i)/25);
+                            num(0,223,0,(gclock*i)/25,(bclock*i)/25);
                         }
-                        num(0,176,0,(gclock*i)/25,(bclock*i)/25);
-                        num(0,223,0,(gclock*i)/25,(bclock*i)/25);
+                        else{
+                            num(HC1,160,0,(gclock*i)/25,(bclock*i)/25);
+                            num(HC2,207,0,(gclock*i)/25,(bclock*i)/25);
+                        }
                         strip.show();
                         delay(2);
                     }
@@ -3143,9 +3147,13 @@ void loop() {                           //General operating loop of the program
                             strip.setPixelColor(164,0,(gclock*i)/25,(bclock*i)/25);
                             strip.setPixelColor(165,0,(gclock*i)/25,(bclock*i)/25);
                             strip.setPixelColor(166,0,(gclock*i)/25,(bclock*i)/25);
+                            num(0,176,0,(gclock*i)/25,(bclock*i)/25);
+                            num(0,223,0,(gclock*i)/25,(bclock*i)/25);
                         }
-                        num(0,176,0,(gclock*i)/25,(bclock*i)/25);
-                        num(0,223,0,(gclock*i)/25,(bclock*i)/25);
+                        else{
+                            num(HC1,160,0,(gclock*i)/25,(bclock*i)/25);
+                            num(HC2,207,0,(gclock*i)/25,(bclock*i)/25);
+                        }
                         strip.show();
                         delay(2);
                     }
