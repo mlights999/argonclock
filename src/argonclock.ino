@@ -3029,10 +3029,7 @@ void loop() {                           //General operating loop of the program
             {
                 if(wmode == 1)                                      //Outdoor Temperature
                 {
-                    for(i=160;i<256;i++)
-                    {
-                        strip.setPixelColor(i,0,0,0);
-                    }
+                    fillStrip(160,255,0,0,0);
                     for(i=0; i <= 25; i++){
                         num(TC1,160,0,(gclock*i)/25,0);
                         num(TC2,207,0,(gclock*i)/25,0);
@@ -3065,32 +3062,31 @@ void loop() {                           //General operating loop of the program
                 }
                 if(wmode == 2)                                      //Indoor Temp from Adafruit Sensor
                 {
-                    for(i=160;i<256;i++)
-                    {
-                        strip.setPixelColor(i,0,0,0);
-                    }
+                    fillStrip(160,255,0,0,0);
                     for(i=0; i <= 25; i++){
-                        num(TC1,160,0,(gclock*i)/25,0);
-                        num(TC2,207,0,(gclock*i)/25,0);
-                        strip.setPixelColor(240,0,(gclock*i)/25,0);
+                        num(itemp/10,160,(rclock*i)/50,0,(bclock*i)/25);
+                        num(itemp%10,207,(rclock*i)/50,0,(bclock*i)/25);
+                        strip.setPixelColor(240,(rclock*i)/50,0,(bclock*i)/25);
                         strip.show();
                         delay(2);
                     }
-                    num(itemp/10,160,(rclock*i)/50,0,(bclock*i)/25);
-                    num(itemp%10,207,(rclock*i)/50,0,(bclock*i)/25);
-                    strip.setPixelColor(240,(rclock*i)/50,0,(bclock*i)/25);
-                    strip.show();
-                    if(tmr%7==0)
-                    {
-                        wmode = 3;
+                    for(i=0; i < 25; i++){
+                        if(digitalRead(D0) == LOW){
+                            delay(100);
+                        }
                     }
+                    for(i=25; i <= 0; i--){
+                        num(itemp/10,160,(rclock*i)/50,0,(bclock*i)/25);
+                        num(itemp%10,207,(rclock*i)/50,0,(bclock*i)/25);
+                        strip.setPixelColor(240,(rclock*i)/50,0,(bclock*i)/25);
+                        strip.show();
+                        delay(2);
+                    }
+                    wmode = 3;
                 }
                 else if (wmode == 3)
                 {
-                    for(i=160;i<231;i++)
-                    {
-                        strip.setPixelColor(i,0,0,0);
-                    }
+                    fillStrip(160,255,0,0,0);
                     if(HC1 == 10)
                     {
                         strip.setPixelColor(160,0,gclock,bclock);
@@ -3117,10 +3113,7 @@ void loop() {                           //General operating loop of the program
                 }
                 else if(wmode == 4)
                 {
-                    for(i=160;i<256;i++)
-                    {
-                        strip.setPixelColor(i,0,0,0);
-                    }
+                    fillStrip(160,255,0,0,0);
                     condition(cid,160);
                     strip.show();
                     delay(100);
@@ -3359,6 +3352,11 @@ void loop() {                           //General operating loop of the program
         tmr = tmr+1;
     }
 
+}
+void fillStrip(int start, int end, int R, int G, int B){
+    for(i = start, i <= end; i++){
+        strip.setPixelColor(i, R, G, B);
+    }
 }
 void myHandler(const char *event, const char *data) {
   // Handle the integration response
