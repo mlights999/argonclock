@@ -3087,29 +3087,52 @@ void loop() {                           //General operating loop of the program
                 else if (wmode == 3)
                 {
                     fillStrip(160,255,0,0,0);
-                    if(HC1 == 10)
-                    {
-                        strip.setPixelColor(160,0,gclock,bclock);
-                        strip.setPixelColor(161,0,gclock,bclock);
-                        strip.setPixelColor(162,0,gclock,bclock);
-                        strip.setPixelColor(163,0,gclock,bclock);
-                        strip.setPixelColor(164,0,gclock,bclock);
-                        strip.setPixelColor(165,0,gclock,bclock);
-                        strip.setPixelColor(166,0,gclock,bclock);
-                        num(0,176,0,gclock,bclock);
-                        num(0,223,0,gclock,bclock);
+                    for(i=0; i <= 25; i++){
+                        if(HC1 == 10)
+                        {
+                            strip.setPixelColor(160,0,(gclock*i)/25,(bclock*i)/25);
+                            strip.setPixelColor(161,0,(gclock*i)/25,(bclock*i)/25);
+                            strip.setPixelColor(162,0,(gclock*i)/25,(bclock*i)/25);
+                            strip.setPixelColor(163,0,(gclock*i)/25,(bclock*i)/25);
+                            strip.setPixelColor(164,0,(gclock*i)/25,(bclock*i)/25);
+                            strip.setPixelColor(165,0,(gclock*i)/25,(bclock*i)/25);
+                            strip.setPixelColor(166,0,(gclock*i)/25,(bclock*i)/25);
+                            num(0,176,0,(gclock*i)/25,(bclock*i)/25);
+                            num(0,223,0,(gclock*i)/25,(bclock*i)/25);
+                        }
+                        else{
+                            num(HC1,160,0,(gclock*i)/25,(bclock*i)/25);
+                            num(HC2,207,0,(gclock*i)/25,(bclock*i)/25);
+                        }
+                        strip.show();
+                        delay(2);
                     }
-                    else
-                    {
-                        strip.setPixelColor(240,0,0,0);
-                        num(HC1,160,0,gclock,bclock);
-                        num(HC2,207,0,gclock,bclock);
+                    for(i=0; i < 25; i++){
+                        if(digitalRead(D0) == LOW){
+                            delay(100);
+                        }
                     }
-                    if(tmr%5==0)
-                    {
-                        wmode = 4;
+                    for(i=25; i >= 0; i--){
+                        if(HC1 == 10)
+                        {
+                            strip.setPixelColor(160,0,(gclock*i)/25,(bclock*i)/25);
+                            strip.setPixelColor(161,0,(gclock*i)/25,(bclock*i)/25);
+                            strip.setPixelColor(162,0,(gclock*i)/25,(bclock*i)/25);
+                            strip.setPixelColor(163,0,(gclock*i)/25,(bclock*i)/25);
+                            strip.setPixelColor(164,0,(gclock*i)/25,(bclock*i)/25);
+                            strip.setPixelColor(165,0,(gclock*i)/25,(bclock*i)/25);
+                            strip.setPixelColor(166,0,(gclock*i)/25,(bclock*i)/25);
+                            num(0,176,0,(gclock*i)/25,(bclock*i)/25);
+                            num(0,223,0,(gclock*i)/25,(bclock*i)/25);
+                        }
+                        else{
+                            num(HC1,160,0,(gclock*i)/25,(bclock*i)/25);
+                            num(HC2,207,0,(gclock*i)/25,(bclock*i)/25);
+                        }
+                        strip.show();
+                        delay(2);
                     }
-                    strip.show();
+                    wmode = 4;
                 }
                 else if(wmode == 4)
                 {
@@ -3354,7 +3377,7 @@ void loop() {                           //General operating loop of the program
 
 }
 void fillStrip(int start, int end, int R, int G, int B){
-    for(i = start, i <= end; i++){
+    for(i = start; i <= end; i++){
         strip.setPixelColor(i, R, G, B);
     }
 }
