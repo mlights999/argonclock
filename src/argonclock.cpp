@@ -3345,30 +3345,22 @@ void myHandler(const char *event, const char *data) {
             cdata[2] = data[j+8];
         }
     }
-    humidity = atof(humdata);
-    cid = atof(cdata);
-    if(cid == 781)
-    {
-        for(i=160;i<247;i++)
-        {
-            strip.setPixelColor(i,0,0,0);
-        }
-        condition(cid,160, rclock, gclock, bclock);
-        strip.show();
-        for(i=0;i<100;i++)
-        {
-            sound(300, 250);
-            delay(250);
-        }
+    if(humdata[0] > '0' && humdata[0] < '9'){
+        humidity = atof(humdata);
+        HC1 = humidity/10;
+        HC2 = humidity%10;
     }
-    HC1 = humidity/10;
-    HC2 = humidity%10;
-    tempK = atof(tempdata);
-    tempC = tempK-273.15;
-    tempF = (tempC*1.8)+32;
-    TFahr = (int)tempF;
-    TC1 = TFahr/10;
-    TC2 = TFahr%10;
+    if(cdata[0] > '0' && cdata[0] < '9'){
+        cid = atof(cdata);
+    }
+    if(tempdata[0] > '0' && tempdata[0] < '9'){
+        tempK = atof(tempdata);
+        tempC = tempK-273.15;
+        tempF = (tempC*1.8)+32;
+        TFahr = (int)tempF;
+        TC1 = TFahr/10;
+        TC2 = TFahr%10;
+    }
     strip.show();
     delay(10);
 }
